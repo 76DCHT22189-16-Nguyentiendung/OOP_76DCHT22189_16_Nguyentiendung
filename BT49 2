@@ -1,0 +1,129 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Khai báo lớp SinhVien
+class SinhVien
+{
+private:
+    string hoTen;       // Họ tên sinh viên
+    int namSinh;        // Năm sinh
+    float diem[4];      // Điểm của 4 môn
+
+public:
+    // Phương thức nhập thông tin sinh viên
+    void nhap()
+    {
+        cout << "Nhap ho ten: ";
+        cin.ignore();
+        getline(cin, hoTen);
+
+        cout << "Nhap nam sinh: ";
+        cin >> namSinh;
+
+        // Nhập điểm 4 môn
+        for (int i = 0; i < 4; i++)
+        {
+            cout << "Nhap diem mon " << i + 1 << ": ";
+            cin >> diem[i];
+        }
+    }
+
+    // Phương thức xuất thông tin sinh viên
+    void xuat()
+    {
+        cout << "Ho ten: " << hoTen << endl;
+        cout << "Nam sinh: " << namSinh << endl;
+
+        // Xuất điểm của 4 môn
+        for (int i = 0; i < 4; i++)
+        {
+            cout << "Diem mon " << i + 1 << ": "
+                 << diem[i] << endl;
+        }
+    }
+
+    // Phương thức tính điểm trung bình
+    float tinhDTB()
+    {
+        float tong = 0;
+
+        // Tính tổng điểm 4 môn
+        for (int i = 0; i < 4; i++)
+        {
+            tong += diem[i];
+        }
+
+        // Trả về điểm trung bình
+        return tong / 4;
+    }
+
+    // Kiểm tra điều kiện thi tốt nghiệp
+    bool thiTotNghiep()
+    {
+        // Điều kiện 1: Điểm trung bình phải nhỏ hơn 7
+        if (tinhDTB() >= 7)
+        {
+            return false;
+        }
+
+        // Điều kiện 2: Không có môn nào dưới 5
+        for (int i = 0; i < 4; i++)
+        {
+            if (diem[i] < 5)
+            {
+                return false;
+            }
+        }
+
+        // Đủ cả 2 điều kiện
+        return true;
+    }
+};
+
+int main()
+{
+    int n;
+
+    // Nhập số lượng sinh viên
+    cout << "Nhap so luong sinh vien: ";
+    cin >> n;
+
+    // Khai báo mảng sinh viên
+    SinhVien sv[100];
+
+    // Nhập thông tin n sinh viên
+    for (int i = 0; i < n; i++)
+    {
+        cout << "\n===== NHAP SINH VIEN " << i + 1 << " =====" << endl;
+        sv[i].nhap();
+    }
+
+    // In các sinh viên đủ điều kiện thi tốt nghiệp
+    cout << "\n===== SINH VIEN THI TOT NGHIEP =====" << endl;
+
+    bool coSinhVien = false;
+
+    for (int i = 0; i < n; i++)
+    {
+        // Kiểm tra điều kiện thi tốt nghiệp
+        if (sv[i].thiTotNghiep())
+        {
+            cout << "\n----- SINH VIEN " << i + 1 << " -----" << endl;
+
+            sv[i].xuat();
+
+            cout << "Diem trung binh: "
+                 << sv[i].tinhDTB() << endl;
+
+            coSinhVien = true;
+        }
+    }
+
+    if (coSinhVien == false)
+    {
+        cout << "Khong co sinh vien nao du dieu kien thi tot nghiep." << endl;
+    }
+
+    return 0;
+}
