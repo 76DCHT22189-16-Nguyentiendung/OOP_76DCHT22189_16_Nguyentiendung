@@ -1,0 +1,120 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Khai báo lớp SinhVien
+class SinhVien
+{
+private:
+    string hoTen;       // Họ tên sinh viên
+    int namSinh;        // Năm sinh
+    float diem[5];      // Điểm của 5 môn
+
+public:
+    // Phương thức nhập thông tin sinh viên
+    void nhap()
+    {
+        cout << "Nhap ho ten: ";
+        cin.ignore();
+        getline(cin, hoTen);
+
+        cout << "Nhap nam sinh: ";
+        cin >> namSinh;
+
+        // Nhập điểm 5 môn
+        for (int i = 0; i < 5; i++)
+        {
+            cout << "Nhap diem mon " << i + 1 << ": ";
+            cin >> diem[i];
+        }
+    }
+
+    // Phương thức xuất thông tin sinh viên
+    void xuat()
+    {
+        cout << "Ho ten: " << hoTen << endl;
+        cout << "Nam sinh: " << namSinh << endl;
+
+        // Xuất điểm 5 môn
+        for (int i = 0; i < 5; i++)
+        {
+            cout << "Diem mon " << i + 1 << ": " << diem[i] << endl;
+        }
+    }
+
+    // Phương thức tính điểm trung bình
+    float tinhDTB()
+    {
+        float tong = 0;
+
+        // Cộng điểm của 5 môn
+        for (int i = 0; i < 5; i++)
+        {
+            tong += diem[i];
+        }
+
+        // Tính trung bình
+        return tong / 5;
+    }
+
+    // Phương thức kiểm tra và in các môn phải thi lại
+    void thiLai()
+    {
+        bool coThiLai = false;
+
+        cout << "Cac mon phai thi lai:" << endl;
+
+        // Kiểm tra từng môn
+        for (int i = 0; i < 5; i++)
+        {
+            if (diem[i] < 5)
+            {
+                cout << "Mon " << i + 1
+                     << " - Diem: " << diem[i] << endl;
+
+                coThiLai = true;
+            }
+        }
+
+        // Nếu không có môn nào dưới 5
+        if (coThiLai == false)
+        {
+            cout << "Khong co mon nao phai thi lai." << endl;
+        }
+    }
+};
+
+int main()
+{
+    int n;
+
+    // Nhập số lượng sinh viên
+    cout << "Nhap so luong sinh vien: ";
+    cin >> n;
+
+    // Khai báo mảng n sinh viên
+    SinhVien sv[100];
+
+    // Nhập thông tin các sinh viên
+    for (int i = 0; i < n; i++)
+    {
+        cout << "\n===== NHAP SINH VIEN " << i + 1 << " =====" << endl;
+        sv[i].nhap();
+    }
+
+    // Xuất thông tin và các môn phải thi lại
+    cout << "\n========== KET QUA ==========" << endl;
+
+    for (int i = 0; i < n; i++)
+    {
+        cout << "\n===== SINH VIEN " << i + 1 << " =====" << endl;
+
+        sv[i].xuat();
+
+        cout << "Diem trung binh: " << sv[i].tinhDTB() << endl;
+
+        sv[i].thiLai();
+    }
+
+    return 0;
+}
