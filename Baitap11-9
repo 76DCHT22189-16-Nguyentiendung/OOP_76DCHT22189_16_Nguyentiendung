@@ -1,0 +1,77 @@
+#include <iostream>
+using namespace std;
+class SoPhuc {
+private:
+    float phanThuc;
+    float phanAo;
+public:
+    // Hàm tạo không đối
+    SoPhuc() {
+        phanThuc = 0;
+        phanAo = 0;
+    }
+    // Hàm tạo có đối
+    SoPhuc(float thuc, float ao) {
+        phanThuc = thuc;
+        phanAo = ao;
+    }
+    // Toán tử +
+    SoPhuc operator+(SoPhuc sp) {
+        return SoPhuc(phanThuc + sp.phanThuc,
+                      phanAo + sp.phanAo);
+    }
+    // Toán tử -
+    SoPhuc operator-(SoPhuc sp) {
+        return SoPhuc(phanThuc - sp.phanThuc,
+                      phanAo - sp.phanAo);
+    }
+    // Toán tử *
+    SoPhuc operator*(SoPhuc sp) {
+        return SoPhuc(
+            phanThuc * sp.phanThuc - phanAo * sp.phanAo,
+            phanThuc * sp.phanAo + phanAo * sp.phanThuc
+        );
+    }
+    // Toán tử /
+    SoPhuc operator/(SoPhuc sp) {
+        float mau = sp.phanThuc * sp.phanThuc
+                  + sp.phanAo * sp.phanAo;
+        return SoPhuc(
+            (phanThuc * sp.phanThuc + phanAo * sp.phanAo) / mau,
+            (phanAo * sp.phanThuc - phanThuc * sp.phanAo) / mau
+        );
+    }
+    // Hàm xuất số phức
+    void xuat() {
+        cout << phanThuc;
+        if (phanAo >= 0)
+            cout << " + " << phanAo << "i";
+        else
+            cout << " - " << -phanAo << "i";
+        cout << endl;
+    }
+};
+int main() {
+    // Khai báo hai số phức
+    SoPhuc sp1(3, 2);
+    SoPhuc sp2(1, 4);
+    // Thực hiện các phép toán
+    SoPhuc tong = sp1 + sp2;
+    SoPhuc hieu = sp1 - sp2;
+    SoPhuc tich = sp1 * sp2;
+    SoPhuc thuong = sp1 / sp2;
+    // In kết quả
+    cout << "So phuc 1: ";
+    sp1.xuat();
+    cout << "So phuc 2: ";
+    sp2.xuat();
+    cout << "Tong: ";
+    tong.xuat();
+    cout << "Hieu: ";
+    hieu.xuat();
+    cout << "Tich: ";
+    tich.xuat();
+    cout << "Thuong: ";
+    thuong.xuat();
+    return 0;
+}
