@@ -1,0 +1,102 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// ==================== LỚP NGƯỜI ====================
+class Nguoi {
+protected:
+    string hoTen;
+    int namSinh;
+
+public:
+    // Hàm tạo không đối
+    Nguoi() {
+        hoTen = "";
+        namSinh = 0;
+    }
+
+    // Hàm tạo có đối
+    Nguoi(string ho, int ns) {
+        hoTen = ho;
+        namSinh = ns;
+    }
+
+    // Phương thức nhập
+    void nhap() {
+        cout << "Nhap ho ten: ";
+        getline(cin, hoTen);
+
+        cout << "Nhap nam sinh: ";
+        cin >> namSinh;
+        cin.ignore();
+    }
+
+    // Phương thức xuất
+    void xuat() const {
+        cout << "Ho ten: " << hoTen << endl;
+        cout << "Nam sinh: " << namSinh << endl;
+    }
+
+    // Hàm hủy
+    ~Nguoi() {
+    }
+};
+
+
+// ==================== LỚP SINH VIÊN ====================
+class SinhVien : public Nguoi {
+private:
+    string maSinhVien;
+    float diemTrungBinh;
+
+public:
+    // Hàm tạo không đối
+    SinhVien() : Nguoi() {
+        maSinhVien = "";
+        diemTrungBinh = 0;
+    }
+
+    // Hàm tạo có đối
+    SinhVien(string ho, int ns, string ma, float dtb)
+        : Nguoi(ho, ns) {
+        maSinhVien = ma;
+        diemTrungBinh = dtb;
+    }
+
+    // Phương thức nhập
+    void nhap() {
+        Nguoi::nhap();
+
+        cout << "Nhap ma sinh vien: ";
+        getline(cin, maSinhVien);
+
+        cout << "Nhap diem trung binh: ";
+        cin >> diemTrungBinh;
+        cin.ignore();
+    }
+
+    // Phương thức xuất
+    void xuat() const {
+        Nguoi::xuat();
+
+        cout << "Ma sinh vien: " << maSinhVien << endl;
+        cout << "Diem trung binh: " << diemTrungBinh << endl;
+    }
+
+    // Hàm hủy
+    ~SinhVien() {
+    }
+};
+
+
+// ==================== HÀM MAIN ====================
+int main() {
+
+    // Chạy thử hàm tạo có đối
+    SinhVien sv("Nguyen Van A", 2005, "SV001", 8.5);
+
+    // Xuất thông tin
+    sv.xuat();
+
+    return 0;
+}
