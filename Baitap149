@@ -1,0 +1,23 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Khai báo lớp Người
+class Nguoi {
+protected:
+    string hoTen;
+    int namSinh;
+};
+
+// Khai báo lớp SinhVien kế thừa từ lớp Người
+class SinhVien : public Nguoi {
+private:
+    string maSinhVien;
+    float diemTrungBinh;
+};
+
+int main() {
+    cout << "Khai bao thanh cong lop Nguoi va SinhVien!" << endl;
+
+    return 0;
+}
